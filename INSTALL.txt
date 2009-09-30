@@ -1,0 +1,41 @@
+The bitweaver game plugin lets you create a concentration based card game. In its current incarnation, the game expects that the cards players match will be about energy (you have to submit a kwh value for each card) but it is an easy foundation for any card matching game.
+
+To install the game, you'll want to start with Bitweaver:
+
+http://sourceforge.net/projects/bitweaver
+
+Lazy? Try:
+  cvs -z3 -d:pserver:anonymous@bitweaver.cvs.sourceforge.net:/cvsroot/bitweaver co -P example bitweaver
+
+Where "example" is the directory you're installing to. If all you want is a card game, you can delete a lot of Bitweaver components that you don't need for the game:
+
+  rm -R articles/ blogs/ boards/ calendar/ events/ fisheye/ gatekeeper/ geo/ gmap/ ilike/ messages/ newsletters/ nexus/ pdf/ pigeonholes/ quicktags/ quota/ recommends/ rss/ shoutbox/ smileys/ stars/ stencils/ stickies/ tags/ treasury/ wiki/
+
+And, you'll need to download a few addons that aren't part of the basic install. If you already went the CVS route, you're looking for:
+
+  cvs co -d games _bit_games
+  cvs co -d energymeasures _bit_energymeasures
+  cvs co -d suggestions _bit_suggestion
+  cvs co -d yamlconfig _bit_yamlconfig
+  cvs co -d badbehavior _bit_badbehavior
+  cvs co -d lcconfig _bit_lcconfig
+
+You need bitweaver's temp and storage directories to be recursively web-server writeable. But you don't want them publicly accessible at all. Assuming your web server runs as apache, try:
+
+  chown -R apache:apache temp storage
+  chmod -R 750 temp storage
+
+You'll also want to change the permissions of the files in "temp":
+find temp -type f -exec chmod 640 {} \;
+
+Create a world-writeable config file for your initial install process (don't forget to come back and change this later): 
+  
+  touch kernel/config_inc.php
+  chmod 777 kernel/config_inc.php
+
+Create a database for your game files. 
+
+Now you can navigate, browser style, to your installation and walk through the install gui.
+
+
+
